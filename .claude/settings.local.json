@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill /F /PID 70928)",
+      "Bash(taskkill //F //PID 70928)",
+      "WebFetch(domain:restcountries.com)",
+      "Bash(taskkill //F //PID 142104)",
+      "Bash(taskkill //F //PID 101496)",
+      "Bash(nul)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

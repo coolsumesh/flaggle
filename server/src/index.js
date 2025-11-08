@@ -1,0 +1,31 @@
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import { initDatabase } from './db/database.js'
+import gameRoutes from './routes/game.js'
+import countryRoutes from './routes/countries.js'
+
+dotenv.config()
+
+const app = express()
+const PORT = process.env.PORT || 3001
+
+// Middleware
+app.use(cors())
+app.use(express.json())
+
+// Initialize database
+initDatabase()
+
+// Routes
+app.use('/api', gameRoutes)
+app.use('/api', countryRoutes)
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Flagle API is running' })
+})
+
+app.listen(PORT, () => {
+  console.log(`🚩 Flagle server running on http://localhost:${PORT}`)
+})
