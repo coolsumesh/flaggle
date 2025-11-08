@@ -1,4 +1,4 @@
-# 🚩 Flagle
+# 🚩 Flaggle
 
 A Wordle-style flag-guessing game where players have 6 attempts to identify a country's flag based on geographic and visual feedback.
 

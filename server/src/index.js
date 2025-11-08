@@ -23,9 +23,9 @@ app.use('/api', countryRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Flagle API is running' })
+  res.json({ status: 'ok', message: 'Flaggle API is running' })
 })
 
 app.listen(PORT, () => {
-  console.log(`🚩 Flagle server running on http://localhost:${PORT}`)
+  console.log(`🚩 Flaggle server running on http://localhost:${PORT}`)
 })

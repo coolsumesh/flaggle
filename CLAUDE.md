@@ -101,7 +101,7 @@ Located in `server/src/utils/feedback.js`:
 
 ---
 
-# Flagle — Game Design Document
+# Flaggle — Game Design Document
 
 > A Wordle-style flag-guessing game with geography-based feedback.
 
@@ -109,7 +109,7 @@ Located in `server/src/utils/feedback.js`:
 
 ## 1. Project summary
 
-**Flagle** is a single-player (and optionally social) geography puzzle: the player has to guess a national flag in 6 attempts. Each guess is a country; the UI shows feedback about how close the guess is to the target based on geography, region, colors, and other heuristics.
+**Flaggle** is a single-player (and optionally social) geography puzzle: the player has to guess a national flag in 6 attempts. Each guess is a country; the UI shows feedback about how close the guess is to the target based on geography, region, colors, and other heuristics.
 
 Goals:
 

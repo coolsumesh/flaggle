@@ -7,7 +7,7 @@ function Header() {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl">🚩</span>
-            <h1 className="text-2xl font-bold text-primary">Flagle</h1>
+            <h1 className="text-2xl font-bold text-primary">Flaggle</h1>
           </Link>
 
           <nav className="flex items-center space-x-6">
