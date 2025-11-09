@@ -33,8 +33,8 @@ router.get('/today', (req, res) => {
 
   if (!game) {
     db.prepare(
-      'INSERT INTO games (id, mode, target_country_id) VALUES (?, ?, ?)'
-    ).run(gameId, 'daily', puzzle.country_id)
+      'INSERT INTO games (id, mode, target_country_id, max_attempts) VALUES (?, ?, ?, ?)'
+    ).run(gameId, 'daily', puzzle.country_id, 6)
   }
 
   // Get target country code for flag display
@@ -54,9 +54,12 @@ router.post('/new-game', (req, res) => {
   const randomCountry = getRandomCountry()
   const gameId = `${mode}-${randomUUID()}`
 
+  // Practice mode has 5 attempts, daily mode has 6
+  const maxAttempts = mode === 'practice' ? 5 : 6
+
   db.prepare(
-    'INSERT INTO games (id, mode, target_country_id) VALUES (?, ?, ?)'
-  ).run(gameId, mode, randomCountry.id)
+    'INSERT INTO games (id, mode, target_country_id, max_attempts) VALUES (?, ?, ?, ?)'
+  ).run(gameId, mode, randomCountry.id, maxAttempts)
 
   res.json({ gameId, targetCode: randomCountry.cca2 })
 })
@@ -95,9 +98,10 @@ router.post('/guess', (req, res) => {
     'INSERT INTO guesses (game_id, country_id, similarity) VALUES (?, ?, ?)'
   ).run(gameId, guessCountry.id, feedback.similarity)
 
-  // Update game
+  // Update game - ensure max_attempts has a default value
+  const maxAttempts = game.max_attempts || (game.mode === 'practice' ? 5 : 6)
   const newAttemptsUsed = game.attempts_used + 1
-  const attemptsLeft = game.max_attempts - newAttemptsUsed
+  const attemptsLeft = maxAttempts - newAttemptsUsed
 
   if (correct || attemptsLeft === 0) {
     db.prepare(
@@ -140,10 +144,13 @@ router.get('/game/:gameId', (req, res) => {
     )
     .all(gameId)
 
+  // Ensure max_attempts has a default value
+  const maxAttempts = game.max_attempts || (game.mode === 'practice' ? 5 : 6)
+
   res.json({
     game,
     guesses,
-    attemptsLeft: game.max_attempts - game.attempts_used
+    attemptsLeft: maxAttempts - game.attempts_used
   })
 })
 

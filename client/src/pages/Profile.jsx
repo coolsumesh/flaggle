@@ -12,7 +12,7 @@ function Profile() {
     : 0
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="w-full px-4 py-8">
       <h2 className="text-3xl font-bold mb-8 text-center">Your Profile</h2>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

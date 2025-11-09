@@ -17,7 +17,8 @@ router.get('/countries', (req, res) => {
         newCountries.map(c => ({
           cca2: c.cca2,
           name: c.name,
-          flag: c.flag_emoji
+          flag: c.flag_emoji,
+          region: c.region
         }))
       )
     }
@@ -26,12 +27,30 @@ router.get('/countries', (req, res) => {
       countries.map(c => ({
         cca2: c.cca2,
         name: c.name,
-        flag: c.flag_emoji
+        flag: c.flag_emoji,
+        region: c.region
       }))
     )
   } catch (error) {
     console.error('Error fetching countries:', error)
     res.status(500).json({ error: 'Failed to fetch countries' })
+  }
+})
+
+// Get individual country by code
+router.get('/countries/:code', (req, res) => {
+  try {
+    const { code } = req.params
+    const country = db.prepare('SELECT * FROM countries WHERE cca2 = ?').get(code)
+
+    if (!country) {
+      return res.status(404).json({ error: 'Country not found' })
+    }
+
+    res.json(country)
+  } catch (error) {
+    console.error('Error fetching country:', error)
+    res.status(500).json({ error: 'Failed to fetch country' })
   }
 })
 
